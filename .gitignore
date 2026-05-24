@@ -1,0 +1,9 @@
+*.log
+
+backup/
+
+data/private/*
+!data/private/.gitignore
+
+.env
+.env.*

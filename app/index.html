@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Progress Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="shell">
+      <header class="topbar">
+        <div>
+          <h1>Progress Tracker</h1>
+          <p class="muted">Read-only view of local progress artifacts, grouped by week.</p>
+        </div>
+      </header>
+
+      <section class="controls" aria-label="View controls">
+        <p id="status" class="status">Loading local files...</p>
+      </section>
+
+      <section id="issues" class="issues" hidden aria-live="polite"></section>
+
+      <section class="table-wrap" aria-label="Progress table">
+        <div id="progressView" class="progress-view">
+          <p class="empty">Loading <strong>data/private/progress.jsonl</strong> or a sample file.</p>
+        </div>
+      </section>
+    </main>
+
+    <script src="tracker.js"></script>
+  </body>
+</html>
