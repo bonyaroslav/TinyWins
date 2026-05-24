@@ -10,7 +10,7 @@
   <img alt="JavaScript" src="https://img.shields.io/badge/JavaScript-vanilla%20runtime-F7DF1E?style=for-the-badge&logo=javascript&logoColor=111">
   <img alt="Liquid Glass" src="https://img.shields.io/badge/Style-Liquid%20Glass-2AF5D1?style=for-the-badge">
   <img alt="JSONL" src="https://img.shields.io/badge/Data-local%20JSONL-4B5563?style=for-the-badge">
-  <img alt="Python" src="https://img.shields.io/badge/Server-python%20http.server-3776AB?style=for-the-badge&logo=python&logoColor=white">
+  <img alt="Caddy" src="https://img.shields.io/badge/Server-Caddy%20static%20file%20server-1F88C0?style=for-the-badge&logo=caddy&logoColor=white">
   <img alt="Local First" src="https://img.shields.io/badge/Local--first-private%20by%20default-146B57?style=for-the-badge">
   <img alt="AI Ready" src="https://img.shields.io/badge/AI--ready-speech%20to%20artifact-111827?style=for-the-badge">
 </p>
@@ -38,7 +38,7 @@ The intended workflow is intentionally minimal: say or type a short daily update
 - **Artifact-oriented:** tracks completed evidence, not intentions.
 - **Local-first:** private data lives in `data/private/` and is ignored by git.
 - **AI-friendly storage:** JSONL keeps each artifact atomic, diffable, and easy for agents to inspect or edit safely.
-- **Zero backend MVP:** static HTML, CSS, and vanilla JavaScript served by Python's built-in HTTP server.
+- **Zero backend MVP:** static HTML, CSS, and vanilla JavaScript served by a local static file server.
 - **Flexible visualization:** lanes are loaded from data files, so the same UI can track software learning, language practice, portfolio work, habits, or experiments.
 - **Low-friction future path:** speech-to-text or chat input can become structured progress without forcing manual form entry.
 
@@ -71,7 +71,12 @@ progress-tracker/
     private/          # local real data, ignored by git
   prompts/
     parse-progress.md # generic AI parsing prompt
-  start-server.vbs    # hidden local server startup on Windows
+  scripts/
+    serve-progress-tracker-caddy.ps1 # primary Windows launcher
+    serve-progress-tracker.ps1       # Python fallback launcher
+    install-windows-startup-task.ps1 # Task Scheduler installer
+    install-macos-launchagent.sh     # LaunchAgent installer
+  start-server.vbs    # legacy hidden startup script on Windows
 ```
 
 Data flow:
@@ -100,7 +105,26 @@ Optional fields: `minutes`, `link`.
 
 ## Quick Start
 
-Run a local server from the repository root:
+The preferred local server is Caddy:
+
+```powershell
+caddy file-server --listen 127.0.0.1:8787 --root . --access-log
+```
+
+If Caddy is not installed yet:
+
+```powershell
+scoop install caddy
+```
+
+On macOS:
+
+```bash
+brew install caddy
+caddy file-server --listen 127.0.0.1:8787 --root . --access-log
+```
+
+Windows fallback, using Python's built-in server:
 
 ```powershell
 python -m http.server 8787 --bind 127.0.0.1
@@ -125,6 +149,34 @@ If they are missing, it falls back to safe public examples:
 data/examples/progress.sample.jsonl
 data/examples/vectors.sample.md
 ```
+
+## Startup
+
+Windows, primary Caddy startup:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\install-windows-startup-task.ps1 -Mode Caddy
+```
+
+Windows, fallback Python startup:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\install-windows-startup-task.ps1 -Mode Python
+```
+
+Remove the Windows startup task:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\uninstall-windows-startup-task.ps1
+```
+
+macOS, Caddy LaunchAgent startup:
+
+```bash
+bash scripts/install-macos-launchagent.sh
+```
+
+The old `start-server.vbs` file is kept only as a legacy fallback until the new startup task has been tested after login.
 
 ## Privacy
 
