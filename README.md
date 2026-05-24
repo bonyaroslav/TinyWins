@@ -8,11 +8,14 @@
   <img alt="HTML" src="https://img.shields.io/badge/HTML-static%20UI-E34F26?style=for-the-badge&logo=html5&logoColor=white">
   <img alt="CSS" src="https://img.shields.io/badge/CSS-responsive%20grid-1572B6?style=for-the-badge&logo=css3&logoColor=white">
   <img alt="JavaScript" src="https://img.shields.io/badge/JavaScript-vanilla%20runtime-F7DF1E?style=for-the-badge&logo=javascript&logoColor=111">
-  <img alt="JSONL" src="https://img.shields.io/badge/Data-JSONL%20append--only-4B5563?style=for-the-badge">
+  <img alt="Liquid Glass" src="https://img.shields.io/badge/Style-Liquid%20Glass-2AF5D1?style=for-the-badge">
+  <img alt="JSONL" src="https://img.shields.io/badge/Data-local%20JSONL-4B5563?style=for-the-badge">
   <img alt="Python" src="https://img.shields.io/badge/Server-python%20http.server-3776AB?style=for-the-badge&logo=python&logoColor=white">
   <img alt="Local First" src="https://img.shields.io/badge/Local--first-private%20by%20default-146B57?style=for-the-badge">
   <img alt="AI Ready" src="https://img.shields.io/badge/AI--ready-speech%20to%20artifact-111827?style=for-the-badge">
 </p>
+
+![Progress Tracker Liquid Glass theme](docs/tinywins_screenshot1.png)
 
 </div>
 
@@ -28,16 +31,32 @@ small action -> short artifact -> visible grid -> competence signal -> next acti
 
 Most productivity tools optimize for tasks, timers, or streaks. This project optimizes for something narrower: making real progress visible with almost no input friction.
 
-The intended workflow is intentionally minimal: say or type a short daily update, let AI classify it into predefined lanes, append structured JSONL, and see the week fill up as a compact visual map. The current MVP is local and read-only; the next step is an ingestion endpoint for voice or chat-based capture.
+The intended workflow is intentionally minimal: say or type a short daily update, let AI classify it into predefined lanes, save structured artifacts, and see the week fill up as a compact visual map. The current MVP is local and read-only; the next step is an ingestion endpoint for voice or chat-based capture.
 
 ## What Makes It Different
 
 - **Artifact-oriented:** tracks completed evidence, not intentions.
 - **Local-first:** private data lives in `data/private/` and is ignored by git.
-- **AI-friendly storage:** JSONL keeps each artifact atomic, append-only, diffable, and easy for agents to edit safely.
+- **AI-friendly storage:** JSONL keeps each artifact atomic, diffable, and easy for agents to inspect or edit safely.
 - **Zero backend MVP:** static HTML, CSS, and vanilla JavaScript served by Python's built-in HTTP server.
 - **Flexible visualization:** lanes are loaded from data files, so the same UI can track software learning, language practice, portfolio work, habits, or experiments.
 - **Low-friction future path:** speech-to-text or chat input can become structured progress without forcing manual form entry.
+
+## UI And Style
+
+The default interface uses a **Liquid Glass** visual direction: dark-first surfaces, translucent panels, cyan and acid highlights, soft blur, and high-contrast artifact chips. It is designed to make a simple progress table feel closer to a polished product surface than a spreadsheet.
+
+The app also includes a local theme selector with five visual directions:
+
+- **Liquid Glass:** dark translucent UI with neon cyan and soft glow.
+- **Dopamine Bento:** bright, playful, warm, and saturated.
+- **Editorial Pop:** print-inspired contrast, sharp lines, and strong typography.
+- **Tactile Craft:** warm paper-like surfaces and earthy category colors.
+- **Calm Focus:** restrained productivity styling with accessible color roles.
+
+Skill lanes use semantic group colors so different progress vectors are visually distinct. Programming and AI work, language learning, career material, and lifestyle projects can each carry their own color family without changing the underlying data.
+
+For public demos or portfolio screenshots, prefer a browser viewport around `1600 x 1000` px. This shows the header, theme selector, week heading, and enough of the grid to communicate the product. If the README image feels too large, export the same crop at `1440 x 900` px and keep the file under roughly `1 MB`.
 
 ## Architecture
 
@@ -133,7 +152,7 @@ The design is inspired by several established behavior and productivity patterns
 
 ## AI-Assisted Roadmap
 
-- **Voice capture:** speak for one minute, transcribe, parse, and append artifacts.
+- **Voice capture:** speak for one minute, transcribe, parse, and save artifacts.
 - **Parser endpoint:** expose a small write API via Google Apps Script, local service, or another lightweight endpoint.
 - **Theme system:** switch visual styles without changing data.
 - **Multiple views:** week, month, heatmap, timeline, and lane summaries.

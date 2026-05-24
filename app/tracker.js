@@ -18,6 +18,35 @@ const fallbackVectors = [
   "Experiments",
 ];
 
+const themes = new Set([
+  "liquid-glass",
+  "dopamine-bento",
+  "editorial-pop",
+  "tactile-craft",
+  "calm-focus",
+]);
+
+const defaultTheme = "liquid-glass";
+const themeStorageKey = "progress-tracker-theme";
+
+const vectorGroups = new Map([
+  ["Job Pipeline", "career"],
+  ["CV / LinkedIn / Positioning", "career"],
+  ["Python", "code"],
+  ["TypeScript", "code"],
+  ["AI / Codex / RAG / GitHub Proof", "code"],
+  ["Spanish / Spain", "language"],
+  ["Hobby / Life Expansion", "lifestyle"],
+]);
+
+const groupLabels = {
+  career: "Career",
+  code: "Code",
+  language: "Language",
+  lifestyle: "Life",
+  general: "General",
+};
+
 const state = {
   artifacts: [],
   errors: [],
@@ -25,13 +54,56 @@ const state = {
   dataSource: "",
   vectorSource: "",
   promptsLoaded: false,
+  theme: defaultTheme,
 };
 
 const statusEl = document.querySelector("#status");
 const issuesEl = document.querySelector("#issues");
 const progressView = document.querySelector("#progressView");
+const themeSelect = document.querySelector("#themeSelect");
 
+initializeTheme();
 loadDefaults();
+
+function initializeTheme() {
+  state.theme = normalizeTheme(readStoredTheme());
+  applyTheme(state.theme);
+
+  if (!themeSelect) {
+    return;
+  }
+
+  themeSelect.value = state.theme;
+  themeSelect.addEventListener("change", () => {
+    state.theme = normalizeTheme(themeSelect.value);
+    writeStoredTheme(state.theme);
+    applyTheme(state.theme);
+  });
+}
+
+function readStoredTheme() {
+  try {
+    return localStorage.getItem(themeStorageKey);
+  } catch {
+    return "";
+  }
+}
+
+function writeStoredTheme(theme) {
+  try {
+    localStorage.setItem(themeStorageKey, theme);
+  } catch {
+    // Theme switching should still work when storage is unavailable.
+  }
+}
+
+function normalizeTheme(value) {
+  return themes.has(value) ? value : defaultTheme;
+}
+
+function applyTheme(theme) {
+  document.documentElement.dataset.theme = normalizeTheme(theme);
+}
 
 async function loadDefaults() {
   try {
@@ -341,7 +413,9 @@ function createWeekTable(week) {
 
   state.vectors.forEach((vector) => {
     const th = document.createElement("th");
-    th.textContent = vector;
+    const group = getVectorGroup(vector);
+    th.className = `vector-head group-${group}`;
+    th.append(createVectorLabel(vector, group));
     headerRow.append(th);
   });
 
@@ -367,6 +441,8 @@ function createDateRow(date, byVector) {
 
   state.vectors.forEach((vector) => {
     const cell = document.createElement("td");
+    const group = getVectorGroup(vector);
+    cell.className = `vector-cell group-${group}`;
     const stack = document.createElement("div");
     stack.className = "cell-stack";
     const artifacts = byVector.get(vector) || [];
@@ -398,7 +474,9 @@ function renderEmpty(message) {
 
 function createArtifactChip(artifact) {
   const chip = artifact.link ? document.createElement("a") : document.createElement("div");
-  chip.className = "artifact";
+  const group = getVectorGroup(artifact.vector);
+  chip.className = `artifact group-${group}`;
+  chip.dataset.group = groupLabels[group];
 
   if (artifact.link) {
     chip.href = artifact.link;
@@ -420,6 +498,30 @@ function createArtifactChip(artifact) {
   }
 
   return chip;
+}
+
+function createVectorLabel(vector, group) {
+  const label = document.createElement("span");
+  label.className = "vector-label";
+
+  const dot = document.createElement("span");
+  dot.className = "vector-dot";
+  dot.setAttribute("aria-hidden", "true");
+
+  const text = document.createElement("span");
+  text.className = "vector-name";
+  text.textContent = vector;
+
+  const groupText = document.createElement("span");
+  groupText.className = "vector-group";
+  groupText.textContent = groupLabels[group];
+
+  label.append(dot, text, groupText);
+  return label;
+}
+
+function getVectorGroup(vector) {
+  return vectorGroups.get(vector) || "general";
 }
 
 function getWeekRange(dateKey) {
