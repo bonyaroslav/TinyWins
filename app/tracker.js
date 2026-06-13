@@ -29,19 +29,18 @@ const themes = new Set([
 const defaultTheme = "liquid-glass";
 const themeStorageKey = "progress-tracker-theme";
 
-const vectorGroups = new Map([
-  ["Job Pipeline", "career"],
-  ["CV / LinkedIn / Positioning", "career"],
-  ["Python", "code"],
-  ["TypeScript", "code"],
-  ["AI / Codex / RAG / GitHub Proof", "code"],
-  ["Spanish / Spain", "language"],
-  ["Hobby / Life Expansion", "lifestyle"],
+const vectorMeta = new Map([
+  ["Jobs Pipeline", { group: "career", tone: "jobs" }],
+  ["Backend Code Review", { group: "code", tone: "backend" }],
+  ["Frontend Common Mistakes", { group: "code", tone: "frontend" }],
+  ["GitHub Artifacts", { group: "code", tone: "github" }],
+  ["Spanish / Spain", { group: "language", tone: "language" }],
+  ["New Life Artifacts Fun", { group: "lifestyle", tone: "life" }],
 ]);
 
 const groupLabels = {
   career: "Career",
-  code: "Code",
+  code: "Development",
   language: "Language",
   lifestyle: "Life",
   general: "General",
@@ -413,9 +412,9 @@ function createWeekTable(week) {
 
   state.vectors.forEach((vector) => {
     const th = document.createElement("th");
-    const group = getVectorGroup(vector);
-    th.className = `vector-head group-${group}`;
-    th.append(createVectorLabel(vector, group));
+    const meta = getVectorMeta(vector);
+    th.className = `vector-head group-${meta.group} tone-${meta.tone}`;
+    th.append(createVectorLabel(vector, meta.group));
     headerRow.append(th);
   });
 
@@ -441,8 +440,8 @@ function createDateRow(date, byVector) {
 
   state.vectors.forEach((vector) => {
     const cell = document.createElement("td");
-    const group = getVectorGroup(vector);
-    cell.className = `vector-cell group-${group}`;
+    const meta = getVectorMeta(vector);
+    cell.className = `vector-cell group-${meta.group} tone-${meta.tone}`;
     const stack = document.createElement("div");
     stack.className = "cell-stack";
     const artifacts = byVector.get(vector) || [];
@@ -474,9 +473,8 @@ function renderEmpty(message) {
 
 function createArtifactChip(artifact) {
   const chip = artifact.link ? document.createElement("a") : document.createElement("div");
-  const group = getVectorGroup(artifact.vector);
-  chip.className = `artifact group-${group}`;
-  chip.dataset.group = groupLabels[group];
+  const meta = getVectorMeta(artifact.vector);
+  chip.className = `artifact group-${meta.group} tone-${meta.tone}`;
 
   if (artifact.link) {
     chip.href = artifact.link;
@@ -520,8 +518,8 @@ function createVectorLabel(vector, group) {
   return label;
 }
 
-function getVectorGroup(vector) {
-  return vectorGroups.get(vector) || "general";
+function getVectorMeta(vector) {
+  return vectorMeta.get(vector) || { group: "general", tone: "general" };
 }
 
 function getWeekRange(dateKey) {

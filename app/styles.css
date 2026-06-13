@@ -24,14 +24,24 @@
   --font-main: "Aptos", "Segoe UI Variable", "Trebuchet MS", sans-serif;
   --career: #ff7ab8;
   --career-soft: rgba(255, 122, 184, 0.18);
-  --code: #2af5d1;
-  --code-soft: rgba(42, 245, 209, 0.18);
+  --code: #7dff6a;
+  --code-soft: rgba(125, 255, 106, 0.2);
   --language: #ffcf47;
   --language-soft: rgba(255, 207, 71, 0.18);
-  --lifestyle: #a7ff5b;
-  --lifestyle-soft: rgba(167, 255, 91, 0.18);
+  --lifestyle: #ff4e6a;
+  --lifestyle-soft: rgba(255, 78, 106, 0.2);
   --general: #9bb7ff;
   --general-soft: rgba(155, 183, 255, 0.18);
+  --jobs: #ff7ab8;
+  --jobs-soft: rgba(255, 122, 184, 0.18);
+  --backend: #7dff6a;
+  --backend-soft: rgba(125, 255, 106, 0.2);
+  --frontend: #2af5d1;
+  --frontend-soft: rgba(42, 245, 209, 0.18);
+  --github: #caff5b;
+  --github-soft: rgba(202, 255, 91, 0.18);
+  --life: #ff2d46;
+  --life-soft: rgba(255, 45, 70, 0.22);
 }
 
 :root[data-theme="dopamine-bento"] {
@@ -60,14 +70,24 @@
   --font-main: "Bahnschrift", "Aptos", "Segoe UI", sans-serif;
   --career: #e3005a;
   --career-soft: #ffe0ec;
-  --code: #0077e6;
-  --code-soft: #d9eeff;
+  --code: #159947;
+  --code-soft: #dff8e8;
   --language: #9a6200;
   --language-soft: #fff0bf;
-  --lifestyle: #247a00;
-  --lifestyle-soft: #ddfacd;
+  --lifestyle: #e3002d;
+  --lifestyle-soft: #ffe0e7;
   --general: #6748c4;
   --general-soft: #ece5ff;
+  --jobs: #e3005a;
+  --jobs-soft: #ffe0ec;
+  --backend: #159947;
+  --backend-soft: #dff8e8;
+  --frontend: #00a889;
+  --frontend-soft: #d9fbf3;
+  --github: #76a800;
+  --github-soft: #ecffd2;
+  --life: #e3002d;
+  --life-soft: #ffe0e7;
 }
 
 :root[data-theme="editorial-pop"] {
@@ -95,14 +115,24 @@
   --font-main: "Georgia", "Cambria", "Times New Roman", serif;
   --career: #ff2f6d;
   --career-soft: #ffd6e3;
-  --code: #006bff;
-  --code-soft: #dceaff;
+  --code: #008f5a;
+  --code-soft: #cff5e3;
   --language: #b16f00;
   --language-soft: #ffe4a3;
-  --lifestyle: #008f5a;
-  --lifestyle-soft: #cff5e3;
+  --lifestyle: #ff2f2f;
+  --lifestyle-soft: #ffdada;
   --general: #5b37d1;
   --general-soft: #e6ddff;
+  --jobs: #ff2f6d;
+  --jobs-soft: #ffd6e3;
+  --backend: #008f5a;
+  --backend-soft: #cff5e3;
+  --frontend: #009d8b;
+  --frontend-soft: #d2fbf4;
+  --github: #62a000;
+  --github-soft: #e4ffd1;
+  --life: #ff2f2f;
+  --life-soft: #ffdada;
 }
 
 :root[data-theme="tactile-craft"] {
@@ -130,14 +160,24 @@
   --font-main: "Candara", "Aptos", "Segoe UI", sans-serif;
   --career: #9f3b63;
   --career-soft: #efd2dc;
-  --code: #216b6a;
-  --code-soft: #cfe5e2;
+  --code: #2f7d3b;
+  --code-soft: #d8ead4;
   --language: #9b6818;
   --language-soft: #f4dfb8;
-  --lifestyle: #4e712e;
-  --lifestyle-soft: #dce8cb;
+  --lifestyle: #b8323a;
+  --lifestyle-soft: #f2d1d1;
   --general: #675686;
   --general-soft: #ded6eb;
+  --jobs: #9f3b63;
+  --jobs-soft: #efd2dc;
+  --backend: #2f7d3b;
+  --backend-soft: #d8ead4;
+  --frontend: #247a68;
+  --frontend-soft: #d5e9e3;
+  --github: #668126;
+  --github-soft: #e3ebcc;
+  --life: #b8323a;
+  --life-soft: #f2d1d1;
 }
 
 :root[data-theme="calm-focus"] {
@@ -164,14 +204,24 @@
   --font-main: "Aptos", "Segoe UI Variable", "Gill Sans", sans-serif;
   --career: #b93f72;
   --career-soft: #f5dce7;
-  --code: #146f91;
-  --code-soft: #dceff5;
+  --code: #2f8b57;
+  --code-soft: #dcefe4;
   --language: #9a6416;
   --language-soft: #f7e7c7;
-  --lifestyle: #4f7c32;
-  --lifestyle-soft: #e1edda;
+  --lifestyle: #c43d4b;
+  --lifestyle-soft: #f4dce0;
   --general: #6864a5;
   --general-soft: #e5e3f4;
+  --jobs: #b93f72;
+  --jobs-soft: #f5dce7;
+  --backend: #2f8b57;
+  --backend-soft: #dcefe4;
+  --frontend: #248a79;
+  --frontend-soft: #d9efeb;
+  --github: #6f8f2f;
+  --github-soft: #e6efd9;
+  --life: #c43d4b;
+  --life-soft: #f4dce0;
 }
 
 * {
@@ -454,21 +504,6 @@ td {
   transition: transform 160ms ease, background-color 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
 }
 
-.artifact::after {
-  display: inline-block;
-  margin-top: 6px;
-  padding: 2px 6px;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  background: var(--surface);
-  color: var(--muted);
-  content: attr(data-group);
-  font-size: 0.62rem;
-  font-weight: 820;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
 a.artifact:hover {
   transform: translateY(-1px);
   border-color: var(--group);
@@ -485,7 +520,7 @@ a.artifact:focus-visible {
   display: -webkit-box;
   overflow: hidden;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 3;
   font-size: 0.82rem;
 }
 
@@ -536,6 +571,36 @@ a.artifact:focus-visible {
 .group-general {
   --group: var(--general);
   --group-soft: var(--general-soft);
+}
+
+.tone-jobs {
+  --group: var(--jobs);
+  --group-soft: var(--jobs-soft);
+}
+
+.tone-backend {
+  --group: var(--backend);
+  --group-soft: var(--backend-soft);
+}
+
+.tone-frontend {
+  --group: var(--frontend);
+  --group-soft: var(--frontend-soft);
+}
+
+.tone-github {
+  --group: var(--github);
+  --group-soft: var(--github-soft);
+}
+
+.tone-language {
+  --group: var(--language);
+  --group-soft: var(--language-soft);
+}
+
+.tone-life {
+  --group: var(--life);
+  --group-soft: var(--life-soft);
 }
 
 @media (max-width: 760px) {
